@@ -1,4 +1,5 @@
 require_relative 'board'
+require 'colorize'
 
 class Mastermind
   # def random_code
@@ -6,7 +7,21 @@ class Mastermind
   # end
   def initialize
     @board = Board.new('RBBY')
-    new_game
+    puts 'Welcome to Mastermind.'.blue
+    launch
+  end
+  def launch
+    puts "\nDo you want to read the instructions before you play? [Y/N]"
+    input = gets.chomp
+    if input.upcase == 'Y'
+      instructions
+      new_game
+    elsif input.upcase == 'N'
+      puts "Okay let's just play"
+      new_game
+    else
+      puts 'WTF dude'
+    end
   end
 
   def instructions
@@ -33,28 +48,45 @@ class Mastermind
     puts "\nIf you identify the correct pattern in 12 guesses or less, you win!"
   end
 
-  def new_game
-    puts 'Welcome to Mastermind.'
-    puts 'Do you want to read the instructions before you play? [Y/N]'
-    input = gets.chomp
-    if input.upcase == 'Y'
-      instructions
-    elsif input.upcase == 'N'
-      puts "Okay let's just play"
-    else
-      puts 'WTF dude'
+  def validate_input(guess)
+    options = ['R', 'G', 'B', 'Y']
+    if guess.length != 4
+      return false
     end
+    true
+  end
+  def new_game
+    puts "Let's begin! Please enter a four character string, using only the letters R, G, B, or Y, with no spaces 'RGBY' for example"
     #@board = Board.new('RGBY')
     options = ['R', 'G', 'B', 'Y']
     secret_code = Array.new(4) { options.sample }
     secret_code = secret_code.join
-    puts "Secret code is now #{secret_code}"
+    #secret_code = "GBYB"
+    #puts "Secret code is now #{secret_code}"
+    #@board = Board.new(secret_code)
     @board = Board.new(secret_code)
     attempts = 0
-    while (attempts < 12)
+    game_over = false
+    while (attempts <= 12 && !game_over)
       print "Guess: "
       input = gets.chomp
-      @board.make_guess(input)
+      input = input.upcase
+      validate_input(input)
+      game_over = @board.make_guess(input)
+      attempts += 1
+    end
+    if (!game_over)
+      puts "\nYou lose! The secret code was: #{secret_code}".red
+    else
+      puts "\nYou won in #{attempts} guesses out of 12! Congratulations!"
+    end
+    
+    puts "Do you want to play again? [Y/N]"
+    input = gets.chomp
+    if input.upcase == 'Y'
+      new_game
+    else
+      puts "Goodbye! Don't forget to tip your developer!".yellow
     end
   end
 end
