@@ -2,9 +2,6 @@ require_relative 'board'
 require 'colorize'
 
 class Mastermind
-  # def random_code
-  #   return [RED, GRN, BLU, YEL]
-  # end
   def initialize
     @board = Board.new('RBBY')
     puts 'Welcome to Mastermind.'.blue
@@ -26,7 +23,7 @@ class Mastermind
   end
 
   def instructions
-    puts 'INSTRUCTIONS: '
+    puts "\nINSTRUCTIONS: "
     puts "\nYour objective is to guess a secret sequence of four colored pegs, in 12 guesses or less. Each square represents a peg."
     puts "\nRules:"
     puts '1) The secret sequence is made up of only Red, Green, Blue or Yellow.'
@@ -34,7 +31,6 @@ class Mastermind
     puts "\n You will be prompted to enter a guess as a string of exactly four characters, like so:"
     puts 'Guess: BBBB'
     @board.make_guess('BBBB')
-    #@board.print_result('RR')
     puts "\nThe result gives you feedback on your guess as follows:"
     puts "\n1) Each red result peg means you have one peg of the correct color in the correct position."
     puts '2) Each white result peg means you have one peg of a correct color in an incorrect position.'
@@ -43,7 +39,6 @@ class Mastermind
     puts 'Each guess gives you more feedback and enables you to make better guesses.'
     puts 'Guess: BBGG'
     @board.make_guess('BBGG')
-   # @board.print_result('RW')
     puts "\nSo now you would know that one of the blue pegs is in the first two positions, and one of them is elsewhere."
     puts 'And you could conclude that there are no green pegs since the number of result pegs did not change.'
     puts "\nIf you identify the correct pattern in 12 guesses or less, you win!"
@@ -63,14 +58,10 @@ class Mastermind
   end
 
   def new_game
-    puts "\nLet's begin! Please enter a four character string, using only the letters R, G, B, or Y, with no spaces 'RGBY' for example"
-    #@board = Board.new('RGBY')
+    puts "\nLet's begin! Please enter a four character string, using only the letters R, G, B, or Y, with no spaces 'RGBY' for example\n\n"
     options = ['R', 'G', 'B', 'Y']
     secret_code = Array.new(4) { options.sample }
     secret_code = secret_code.join
-    #secret_code = "GBYB"
-    #puts "Secret code is now #{secret_code}"
-    #@board = Board.new(secret_code)
     @board = Board.new(secret_code)
     attempts = 0
     game_over = false

@@ -32,27 +32,23 @@ class Board
     game_over = false
     red_count = 0
     white_count = 0
-    c_count = 0
     working_guess = guess.dup
     working_code = @secret_code.dup
-    #puts "Before: working_guess: #{working_guess} secret_code:{#{@secret_code}}"
     for i in 0..3 do
-      if working_guess[i] == working_code[i]
-        red_count += 1
-        working_guess[i] = '.'
-        working_code[i] = ','
-       # puts "working_guess: #{working_guess} secret_code:{#{@secret_code}}"
-      end
+      next unless working_guess[i] == working_code[i]
+
+      red_count += 1
+      working_guess[i] = '.'
+      working_code[i] = ','
     end
     for i in 0..3 do
       index = working_code.index(working_guess[i])
-      if index != nil
-        c_count += 1
-        working_guess[i] = '.'
-        working_code[index] = ','
-      end
+      next if index.nil?
+
+      white_count += 1
+      working_guess[i] = '.'
+      working_code[index] = ','
     end
-    white_count = c_count
     @result_log.push([red_count, white_count])
     game_over = true if red_count == 4
     for i in 1..red_count
