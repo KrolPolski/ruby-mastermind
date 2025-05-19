@@ -49,7 +49,7 @@ class Board
 	end
 	for i in 1..white_count
       @result_str += 'W'
-    end
+    end	
   end
       
 

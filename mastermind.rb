@@ -44,7 +44,12 @@ class Mastermind
     else
       puts 'WTF dude'
     end
-    @board = Board.new('RGBY')
+    #@board = Board.new('RGBY')
+    options = ['R', 'G', 'B', 'Y']
+    secret_code = Array.new(4) { options.sample }
+    secret_code = secret_code.join
+    puts "Secret code is now #{secret_code}"
+    @board = Board.new(secret_code)
     attempts = 0
     while (attempts < 12)
       print "Guess: "
