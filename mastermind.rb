@@ -7,19 +7,18 @@ class Mastermind
     puts 'Welcome to Mastermind.'.blue
     launch
   end
+
   def launch
     puts "\nDo you want to read the instructions before you play? [Y/N]"
     input = gets.chomp
-    if input.upcase == 'Y' || input.upcase == 'YES'
+    if ['Y', 'YES'].include?(input.upcase)
       instructions
-      new_game
-    elsif input.upcase == 'N' || input.upcase == 'NO'
+    elsif ['N', 'NO'].include?(input.upcase)
       puts "Okay let's just play"
-      new_game
     else
-      puts "I hope you know what you are doing..."
-      new_game
+      puts 'I hope you know what you are doing...'
     end
+    new_game
   end
 
   def instructions
@@ -46,13 +45,9 @@ class Mastermind
 
   def validate_input(guess)
     options = ['R', 'G', 'B', 'Y']
-    if guess.length != 4
-      return false
-    end
+    return false if guess.length != 4
     guess.each_char do |c|
-      if options.count(c) != 1
-        return false
-      end  
+      return false if options.count(c) != 1
     end
     true
   end
@@ -65,8 +60,8 @@ class Mastermind
     @board = Board.new(secret_code)
     attempts = 0
     game_over = false
-    while (attempts <= 12 && !game_over)
-      print "Guess: "
+    while attempts < 12 && !game_over
+      print 'Guess: '
       input = gets.chomp
       input = input.upcase
       if validate_input(input) == false
@@ -76,13 +71,13 @@ class Mastermind
         attempts += 1
       end
     end
-    if (!game_over)
+    if !game_over
       puts "\nYou lose! The secret code was: #{secret_code}".red
     else
       puts "\nYou won in #{attempts} guesses out of 12! Congratulations!"
     end
-    
-    puts "Do you want to play again? [Y/N]"
+
+    puts 'Do you want to play again? [Y/N]'
     input = gets.chomp
     if input.upcase == 'Y'
       new_game

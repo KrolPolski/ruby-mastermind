@@ -36,7 +36,6 @@ class Board
     working_code = @secret_code.dup
     for i in 0..3 do
       next unless working_guess[i] == working_code[i]
-
       red_count += 1
       working_guess[i] = '.'
       working_code[i] = ','
