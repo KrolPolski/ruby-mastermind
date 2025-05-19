@@ -13,14 +13,15 @@ class Mastermind
   def launch
     puts "\nDo you want to read the instructions before you play? [Y/N]"
     input = gets.chomp
-    if input.upcase == 'Y'
+    if input.upcase == 'Y' || input.upcase == 'YES'
       instructions
       new_game
-    elsif input.upcase == 'N'
+    elsif input.upcase == 'N' || input.upcase == 'NO'
       puts "Okay let's just play"
       new_game
     else
-      puts 'WTF dude'
+      puts "I hope you know what you are doing..."
+      new_game
     end
   end
 
@@ -62,7 +63,7 @@ class Mastermind
   end
 
   def new_game
-    puts "Let's begin! Please enter a four character string, using only the letters R, G, B, or Y, with no spaces 'RGBY' for example"
+    puts "\nLet's begin! Please enter a four character string, using only the letters R, G, B, or Y, with no spaces 'RGBY' for example"
     #@board = Board.new('RGBY')
     options = ['R', 'G', 'B', 'Y']
     secret_code = Array.new(4) { options.sample }
