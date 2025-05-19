@@ -44,8 +44,13 @@ class Mastermind
     else
       puts 'WTF dude'
     end
-    @board.reset_board
-    @board.make_guess('GGGG')
+    @board = Board.new('RGBY')
+    attempts = 0
+    while (attempts < 12)
+      print "Guess: "
+      input = gets.chomp
+      @board.make_guess(input)
+    end
   end
 end
 

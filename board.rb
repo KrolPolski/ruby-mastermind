@@ -40,16 +40,16 @@ class Board
     p unique_guess
     unique_guess.each_char do |c|
       c_count += @secret_code.count(c)
-      #puts "There are #{c_count} instances of #{c} in #{@secret_code}"
+      puts "There are #{c_count} instances of #{c} in #{@secret_code}"
     end
     white_count = c_count - red_count
     @result_log.push([red_count, white_count])
     for i in 1..red_count
       @result_str += 'R'
-    for i in 1..white_count
-      @result_str += 'W'
 	end
-  end
+	for i in 1..white_count
+      @result_str += 'W'
+    end
   end
       
 
