@@ -53,8 +53,14 @@ class Mastermind
     if guess.length != 4
       return false
     end
+    guess.each_char do |c|
+      if options.count(c) != 1
+        return false
+      end  
+    end
     true
   end
+
   def new_game
     puts "Let's begin! Please enter a four character string, using only the letters R, G, B, or Y, with no spaces 'RGBY' for example"
     #@board = Board.new('RGBY')
@@ -71,9 +77,12 @@ class Mastermind
       print "Guess: "
       input = gets.chomp
       input = input.upcase
-      validate_input(input)
-      game_over = @board.make_guess(input)
-      attempts += 1
+      if validate_input(input) == false
+        puts "That's not a valid guess. You need exactly four characters, made up only of R, G, B, or Y"
+      else
+        game_over = @board.make_guess(input)
+        attempts += 1
+      end
     end
     if (!game_over)
       puts "\nYou lose! The secret code was: #{secret_code}".red
