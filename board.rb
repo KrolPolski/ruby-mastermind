@@ -27,7 +27,7 @@ class Board
     game_over = check_guess(guess)
     print_guess(guess)
     print_result(@result_str)
-    #@result_log.push(@result_str)
+    # @result_log.push(@result_str)
     @result_str = ''
     game_over
   end
@@ -45,7 +45,7 @@ class Board
       working_guess[i] = '.'
       working_code[i] = ','
     end
-    for i in 0..3 do
+    (0..3).each do |i|
       index = working_code.index(working_guess[i])
       next if index.nil?
 

@@ -14,15 +14,16 @@ class Mastermind
       puts 'Do you want to play again? [Y/N]'
       input = gets.chomp
     end
-      puts "Goodbye! Don't forget to tip your developer!".yellow
+    puts "Goodbye! Don't forget to tip your developer!".yellow
   end
 
   def choose_mode
     puts "\n Do you want to:\n G)uess the secret code \n S)et the secret code and have the computer guess"
+    puts "If it's your first time, we recommend you choose G)uess"
     input = gets.chomp
-    if input.upcase == 'G' || input.upcase == 'GUESS'
+    if ['G', 'GUESS'].include?(input.upcase)
       launch_player_guesses
-    elsif input.upcase == 'S' || input.upcase == 'SET'
+    elsif ['S', 'SET'].include?(input.upcase)
       launch_computer_guesses
     else
       puts "I don't understand, try again"
@@ -31,15 +32,13 @@ class Mastermind
   end
 
   def launch_computer_guesses
-    puts "Enter a 4 character string, using only R, G, B and Y"
+    puts 'Enter a 4 character string, using only R, G, B and Y'
     input = ''
-    until validate_input(input)
-      input = gets.chomp
-    end
-    @board = Board.new(input)
+    input = gets.chomp until validate_input(input.upcase)
+    @board = Board.new(input.upcase)
     @ai_player = ComputerPlayer.new(@board)
   end
-  
+
   def launch_player_guesses
     puts "\nDo you want to read the instructions before you play? [Y/N]"
     input = gets.chomp
@@ -109,8 +108,6 @@ class Mastermind
     else
       puts "\nYou won in #{attempts} guesses out of 12! Congratulations!"
     end
-
-    
   end
 end
 
