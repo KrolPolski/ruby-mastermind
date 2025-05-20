@@ -3,6 +3,8 @@ require 'colorize'
 # This class handles guess checking and printing against
 # the secret code generated in the mastermind class.
 class Board
+  attr_reader :guesses_log, :result_log
+
   def initialize(secret_code)
     @secret_code = secret_code
     @attempts = 0
@@ -25,6 +27,7 @@ class Board
     game_over = check_guess(guess)
     print_guess(guess)
     print_result(@result_str)
+    #@result_log.push(@result_str)
     @result_str = ''
     game_over
   end

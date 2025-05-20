@@ -1,14 +1,38 @@
 require_relative 'board'
+require_relative 'computer_player'
 require 'colorize'
 
 class Mastermind
   def initialize
     @board = Board.new('RBBY')
     puts 'Welcome to Mastermind.'.blue
-    launch
+    choose_mode
   end
 
-  def launch
+  def choose_mode
+    puts "\n Do you want to:\n G)uess the secret code \n S)et the secret code and have the computer guess"
+    input = gets.chomp
+    if input.upcase == 'G' || input.upcase == 'GUESS'
+      launch_player_guesses
+    elsif input.upcase == 'S' || input.upcase == 'SET'
+      launch_computer_guesses
+    else
+      puts "I don't understand, try again"
+      choose_mode
+    end
+  end
+
+  def launch_computer_guesses
+    puts "AI takeover woo"
+    input = ''
+    until validate_input(input)
+      input = gets.chomp
+    end
+    @board = Board.new(input)
+    @ai_player = ComputerPlayer.new(@board)
+  end
+  
+  def launch_player_guesses
     puts "\nDo you want to read the instructions before you play? [Y/N]"
     input = gets.chomp
     if ['Y', 'YES'].include?(input.upcase)
