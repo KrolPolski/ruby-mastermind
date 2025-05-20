@@ -1,5 +1,7 @@
 require 'colorize'
 
+# This class handles guess checking and printing against
+# the secret code generated in the mastermind class.
 class Board
   def initialize(secret_code)
     @secret_code = secret_code
@@ -20,7 +22,6 @@ class Board
   def make_guess(guess)
     @attempts += 1
     @guesses_log.push(guess)
-    # p @guesses_log
     game_over = check_guess(guess)
     print_guess(guess)
     print_result(@result_str)
@@ -34,8 +35,9 @@ class Board
     white_count = 0
     working_guess = guess.dup
     working_code = @secret_code.dup
-    for i in 0..3 do
+    (0..3).each do |i|
       next unless working_guess[i] == working_code[i]
+
       red_count += 1
       working_guess[i] = '.'
       working_code[i] = ','
@@ -50,10 +52,10 @@ class Board
     end
     @result_log.push([red_count, white_count])
     game_over = true if red_count == 4
-    for i in 1..red_count
+    (1..red_count).each do
       @result_str += 'R'
     end
-    for i in 1..white_count
+    (1..white_count).each do
       @result_str += 'W'
     end
     game_over

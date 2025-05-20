@@ -46,6 +46,7 @@ class Mastermind
   def validate_input(guess)
     options = ['R', 'G', 'B', 'Y']
     return false if guess.length != 4
+
     guess.each_char do |c|
       return false if options.count(c) != 1
     end
