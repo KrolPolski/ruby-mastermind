@@ -12,7 +12,11 @@ To be able to run it, you'll need to have ruby installed. It also requires the c
 ```
 bundle install
 ruby mastermind.rb
-``` 
+```
+Or you can just do:
+```
+gem install colorize
+```
 Once colorize has been installed, all you have to do is run:
 
 ```
