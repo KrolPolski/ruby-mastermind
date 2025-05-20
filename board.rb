@@ -3,7 +3,7 @@ require 'colorize'
 # This class handles guess checking and printing against
 # the secret code generated in the mastermind class.
 class Board
-  attr_reader :guesses_log, :result_log
+  attr_reader :guesses_log, :result_log, :attempts
 
   def initialize(secret_code)
     @secret_code = secret_code

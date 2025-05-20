@@ -7,6 +7,14 @@ class Mastermind
     @board = Board.new('RBBY')
     puts 'Welcome to Mastermind.'.blue
     choose_mode
+    puts 'Do you want to play again? [Y/N]'
+    input = gets.chomp
+    while input.upcase == 'Y'
+      choose_mode
+      puts 'Do you want to play again? [Y/N]'
+      input = gets.chomp
+    end
+      puts "Goodbye! Don't forget to tip your developer!".yellow
   end
 
   def choose_mode
@@ -23,7 +31,7 @@ class Mastermind
   end
 
   def launch_computer_guesses
-    puts "AI takeover woo"
+    puts "Enter a 4 character string, using only R, G, B and Y"
     input = ''
     until validate_input(input)
       input = gets.chomp
@@ -102,13 +110,7 @@ class Mastermind
       puts "\nYou won in #{attempts} guesses out of 12! Congratulations!"
     end
 
-    puts 'Do you want to play again? [Y/N]'
-    input = gets.chomp
-    if input.upcase == 'Y'
-      new_game
-    else
-      puts "Goodbye! Don't forget to tip your developer!".yellow
-    end
+    
   end
 end
 
